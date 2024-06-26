@@ -2,24 +2,26 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
+	"github.com/gorilla/mux"
+	handlers "github.com/hitokirisss/struct/Handlers"
 	"github.com/hitokirisss/struct/models"
+	worker "github.com/hitokirisss/struct/models/Worker"
 )
 
 func main() {
-	workers := models.GetWorkers()
-	fmt.Println(workers)
-	fmt.Println()
-	students := models.GetStudents()
-	fmt.Println(students)
-	err:= Submit("2", 1, students)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(students)
+	workerRepo := worker.New()
+	workerHandler := handlers.NewWorkerHandler(workerRepo)
+
+	r := mux.NewRouter()
+	r.HandleFunc("/get-workers", workerHandler.GetWorkers).Methods("GET")
+	
+	// r.HandleFunc("/get-students")
+
+	fmt.Println("starting server at :8080")
+	http.ListenAndServe(":8080", r)
 }
-
-
 
 func Submit(groupID string, taskID int, students []models.Student) error {
 	for i, student := range students {
@@ -33,4 +35,3 @@ func Submit(groupID string, taskID int, students []models.Student) error {
 
 	return nil
 }
-
