@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/hitokirisss/struct/models/Worker"
+	"github.com/hitokirisss/struct/models"
 )
 
 type WorkerHandler struct {
@@ -12,7 +12,7 @@ type WorkerHandler struct {
 }
 
 type WorkerRepo interface {
-	GetWorkers() []worker.Worker
+	GetWorkers() []models.Worker
 	SetNewData(newName string, newSurname string, workerID int) error
 	GetData(workerID int) (string, error)
 	GetGroupID(workerID int) ([]string, error)
@@ -33,6 +33,6 @@ func (handler *WorkerHandler) GetWorkers(w http.ResponseWriter, r *http.Request)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 
 		return
-	} 
+	}
 	w.Write(res)
 }

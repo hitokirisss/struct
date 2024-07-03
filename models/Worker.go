@@ -1,11 +1,8 @@
-package worker
+package models
 
-import (
-	"github.com/hitokirisss/struct/models/human"
-)
 
 type Worker struct {
-	data   human.Human
+	Data   Human
 	ID     int
 	Groups []string
 }
@@ -13,7 +10,7 @@ type Worker struct {
 func GetWorkers() []Worker{
 	workers := []Worker{
 		{
-			data: human.Human{
+			Data: Human{
 				Name: "Олег",
 				Surname: "Евгеев",
 				Age: 21,
@@ -22,7 +19,7 @@ func GetWorkers() []Worker{
 			Groups: []string{"1", "2"},
 		},
 		{
-			data: human.Human{
+			Data: Human{
 				Name: "Айта",
 				Surname: "Оконов",
 				Age: 21,
@@ -31,7 +28,7 @@ func GetWorkers() []Worker{
 			Groups: []string{"1", "3"},
 		},
 		{
-			data: human.Human{
+			Data: Human{
 				Name: "Дмитрий",
 				Surname: "Иванов",
 				Age: 23,
@@ -42,6 +39,3 @@ func GetWorkers() []Worker{
 	}
 	return workers
 }
-
-
-

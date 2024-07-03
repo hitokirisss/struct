@@ -2,6 +2,8 @@ package worker
 
 import (
 	"errors"
+
+	"github.com/hitokirisss/struct/models"
 )
 
 var (
@@ -9,24 +11,14 @@ var (
 	errGroupNotFound  = errors.New("Group not found")
 )
 
-type WorkerMemmoryRepo struct {
-	workers []Worker
-}
-
-func New() *WorkerMemmoryRepo {
-	return &WorkerMemmoryRepo{
-		workers : GetWorkers(),
-	}
-}
-
-func (w *WorkerMemmoryRepo) GetWorkers() []Worker {
+func (w *WorkerMemmoryRepo) GetWorkers() []models.Worker {
 	return w.workers
 }
 
 func (w *WorkerMemmoryRepo) SetNewData(newName string, newSurname string, workerID int) error {
 	for i, worker := range w.workers {
 		if worker.ID == workerID {
-			w.workers[i].data.SetNewNameAndSurname(newName, newSurname)
+			w.workers[i].Data.SetNewNameAndSurname(newName, newSurname)
 
 			return nil
 		}
@@ -38,7 +30,7 @@ func (w *WorkerMemmoryRepo) SetNewData(newName string, newSurname string, worker
 func (w WorkerMemmoryRepo) GetData(workerID int) (string, error) {
 	for _, worker := range w.workers {
 		if worker.ID == workerID {
-			return worker.data.GetData(), nil
+			return worker.Data.GetData(), nil
 		}
 	}
 
@@ -79,7 +71,7 @@ func (w *WorkerMemmoryRepo) AddGroup(groupID string, workerID int) error {
 			for _, group := range worker.Groups {
 				if group == groupID {
 
-					return nil 
+					return nil
 				}
 			}
 
