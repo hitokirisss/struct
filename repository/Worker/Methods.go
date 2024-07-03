@@ -83,3 +83,15 @@ func (w *WorkerMemmoryRepo) AddGroup(groupID string, workerID int) error {
 
 	return errWorkerNotFound
 }
+
+func (w WorkerMemmoryRepo) GetWorker(workerID int) (models.Worker, error) {
+	for _, worker := range w.workers {
+		if worker.ID == workerID {
+			return worker, nil
+		}
+	}
+
+	return models.Worker{}, errWorkerNotFound
+
+}
+ 

@@ -2,8 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/hitokirisss/struct/models"
@@ -20,6 +20,7 @@ type StudentRepo interface {
 	GetGroupID(studentID int) (string, error)
 	SubmitTask(taskID int, studentID int) error
 	GetStudents() []models.Student
+	GetStudent(studentID int) (models.Student, error)
 }
 
 func NewStudentHandler(repo StudentRepo) *StudentHandler {
@@ -42,5 +43,26 @@ func (handler *StudentHandler) GetStudents(w http.ResponseWriter, r *http.Reques
 
 func (handler *StudentHandler) GetStudent(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	fmt.Println(vars)
+
+	studentID, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+
+		return
+	}
+
+	student, err := handler.repo.GetStudent(studentID)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+
+		return
+	}
+
+	res, err := json.MarshalIndent(student, "", " ")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+
+		return
+	}
+	w.Write(res)
 }

@@ -81,3 +81,13 @@ func (s *StudentMemmoryRepo) SubmitTask(taskID int, studentID int) error {
 func (s *StudentMemmoryRepo) GetStudents() []models.Student {
 	return s.students
 }
+
+func (s StudentMemmoryRepo) GetStudent(studentID int) (models.Student, error) {
+	for _, student := range s.students {
+		if student.ID == studentID {
+			return student, nil
+		}
+	}
+
+	return models.Student{}, errStudentNotFound
+}

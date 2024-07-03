@@ -21,6 +21,8 @@ func main() {
 
 	r.HandleFunc("/get-workers", workerHandler.GetWorkers).Methods("GET")	
 
+	r.HandleFunc("/get-worker/{id}", workerHandler.GetWorker).Methods("GET")	
+
 	r.HandleFunc("/get-students", studentHandler.GetStudents).Methods("GET")
 
 	r.HandleFunc("/get-student/{id}", studentHandler.GetStudent).Methods("GET")
