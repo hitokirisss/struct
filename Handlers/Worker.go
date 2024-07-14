@@ -65,3 +65,5 @@ func (handler *WorkerHandler) GetWorker(w http.ResponseWriter, r *http.Request) 
 	}
 	w.Write(res)
 }
+
+

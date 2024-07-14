@@ -19,13 +19,15 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/get-workers", workerHandler.GetWorkers).Methods("GET")	
+	r.HandleFunc("/get-workers", workerHandler.GetWorkers).Methods("GET")
 
-	r.HandleFunc("/get-worker/{id}", workerHandler.GetWorker).Methods("GET")	
+	r.HandleFunc("/get-worker/{id}", workerHandler.GetWorker).Methods("GET")
 
 	r.HandleFunc("/get-students", studentHandler.GetStudents).Methods("GET")
 
 	r.HandleFunc("/get-student/{id}", studentHandler.GetStudent).Methods("GET")
+
+	r.HandleFunc("/submit-task", studentHandler.SubmitTask).Methods("POST")
 
 	fmt.Println("starting server at :8080")
 	http.ListenAndServe(":8080", r)

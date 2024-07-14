@@ -55,9 +55,9 @@ func (s *StudentMemmoryRepo) GetGroupID(studentID int) (string, error) {
 	return "", errStudentNotFound
 }
 
-func (s *StudentMemmoryRepo) SubmitTask(taskID int, studentID int) error {
+func (s *StudentMemmoryRepo) SubmitTask(taskID int, groupID string) error {
 	for i, student := range s.students {
-		if student.ID == studentID {
+		if student.GroupID == groupID {
 			flag := false
 
 			for j, task := range student.Tasks {

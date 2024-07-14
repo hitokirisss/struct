@@ -1,7 +1,7 @@
 package models
 
 type Student struct {
-	Data    Human
+	Data    Human 
 	GroupID string
 	ID      int
 	Tasks   []Task
